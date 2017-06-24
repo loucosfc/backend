@@ -1,8 +1,8 @@
 ![](http://loucosfc.com/assets/logo-846f77c8d6ca20d7d2f6b6eb698c2aa6.png)
 
-# Loucos FC - Backend
+# Backend
 
-This is the main repository behind the loucosfc.com website.
+This is the main repository behind the [http://loucosfc.com](http://loucosfc.com) website.
 
 The backend project is written with Node.JS v8. We're using [Koa](http://koajs.com/) as web framework.
 
