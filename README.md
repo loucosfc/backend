@@ -1,5 +1,6 @@
-# Loucos FC
-## Backend
+# Loucos FC - Backend
+
+![](http://loucosfc.com/assets/logo-846f77c8d6ca20d7d2f6b6eb698c2aa6.png)
 
 This is the main repository behind the loucosfc.com website.
 
