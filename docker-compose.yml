@@ -4,10 +4,14 @@ services:
   backend:
     build: .
     ports:
-    - "3010:3010"
+    - "8080:8080"
     volumes:
     - .:/usr/src/app
   db:
     image: postgres:9.6.3
     ports:
     - "5432:5432"
+    environment:
+      POSTGRES_USER: 'loucosfc'
+      POSTGRES_PASSWORD: 'loucosfc'
+      POSTGRES_DB: 'loucosfc'
