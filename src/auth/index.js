@@ -6,8 +6,8 @@ const router = new Router({
 
 router.post('/sign-in', async (ctx, next) => {
   const params = ctx.request.body;
-  const username = params.username ? params.username : '';
-  const password = params.password ? params.password : '';
+  const username = params && params.username ? params.username : '';
+  const password = params && params.password ? params.password : '';
   const response = await AuthService.signIn({ username, password });
 
   ctx.body = response.success ? response.data : '';
