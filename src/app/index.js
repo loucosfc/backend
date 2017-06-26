@@ -1,4 +1,5 @@
 const logger = require('koa-logger');
+const bodyParser = require('koa-bodyparser');
 const auth = require('./auth');
 const user = require('./user');
 const dotenv = require('dotenv');
@@ -13,6 +14,7 @@ const app = new Koa();
 const port = process.env.PORT || 3010;
 
 app.use(logger());
+app.use(bodyParser());
 
 loadModules(app, [
   auth,
