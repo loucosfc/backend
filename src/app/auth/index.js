@@ -5,7 +5,7 @@ const router = new Router({
   prefix: '/auth',
 });
 
-router.post('/sign-in', async (ctx) => {
+router.post('/', async (ctx) => {
   const response = await AuthService.signIn({ ctx });
   ctx.body = response.success ? response.data : '';
   ctx.status = response.success ? 200 : 402;

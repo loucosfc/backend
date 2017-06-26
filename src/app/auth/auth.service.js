@@ -4,7 +4,6 @@ const User = require('../user/user.model');
 class AuthService extends BaseService {
   async signIn({ ctx }) {
     const params = ctx.request.body;
-    console.log(params);
     const response = await User.findOne({
       where: {
         email: params.email,
