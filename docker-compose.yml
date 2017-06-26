@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  backend:
+    build: .
+    ports:
+    - "3010:3010"
+    volumes:
+    - .:/usr/src/app
+  db:
+    image: postgres:9.6.3
+    ports:
+    - "5432:5432"
