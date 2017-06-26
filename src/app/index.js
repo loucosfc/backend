@@ -1,10 +1,10 @@
-const logger = require('koa-logger');
-const bodyParser = require('koa-bodyparser');
-const auth = require('./auth');
-const user = require('./user');
 const dotenv = require('dotenv');
 const Koa = require('koa');
+const auth = require('./auth');
+const user = require('./user');
 const loadModules = require('../core/utils/load-modules');
+const logger = require('../core/middlewares/logger');
+const bodyParser = require('../core/middlewares/body-parser');
 const sequelize = require('../core/lib/sequelize');
 
 dotenv.config();
