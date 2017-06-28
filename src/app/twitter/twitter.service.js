@@ -1,10 +1,6 @@
 const Twitter = require('twitter');
 
 class TwitterService {
-  constructor() {
-    this.initializeClient();
-  }
-
   setClient() {
     this.client = new Twitter({
       consumer_key: 'OCplIcZKLEwrkytPMAPBcA',
@@ -13,7 +9,7 @@ class TwitterService {
       access_token_secret: 'lmL2sLPUJSPQCmnsctIWGE01NUkvSXe6CiIPUjNecw',
     });
   }
-  
+
   getClient() {
     return this.client;
   }
