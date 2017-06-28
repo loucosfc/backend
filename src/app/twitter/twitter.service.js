@@ -19,6 +19,8 @@ class TwitterService {
     stream.on('error', (event) => {
       error(event);
     });
+
+    return stream;
   }
 }
 
