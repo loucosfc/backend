@@ -1,13 +1,8 @@
 const Twitter = require('twitter');
 
 class TwitterService {
-  setClient() {
-    this.client = new Twitter({
-      consumer_key: 'OCplIcZKLEwrkytPMAPBcA',
-      consumer_secret: 'IOsoNGcwoj0lEDIRWzopyIjLtSlWhaDdnOc2LhpUXw',
-      access_token_key: '42153578-hWNPJjQBq7bCqiQHpvi8bVAGRdlDQSHk0NlGYSNiT',
-      access_token_secret: 'lmL2sLPUJSPQCmnsctIWGE01NUkvSXe6CiIPUjNecw',
-    });
+  setClient(params) {
+    this.client = new Twitter(params);
   }
 
   getClient() {
@@ -27,4 +22,4 @@ class TwitterService {
   }
 }
 
-module.exports = new TwitterService();
+module.exports = TwitterService;
