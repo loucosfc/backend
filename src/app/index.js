@@ -26,23 +26,28 @@ app.use(bodyParser());
 
 const httpServer = http.createServer(app.callback());
 const io = new IO(httpServer);
-const clients = [];
 
-io.on('connection', (_socket) => {
-  const socket = _socket;
-  socket.streaming = twitterService.stream('flamengo', (event) => {
-    if (tweetIsValid(event)) {
-      console.log('ae');
-      io.emit('tweet', event);
+io.on('connection', (socket) => {
+  let streaming = {};
+
+  socket.on('begin:stream', (teamSlug) => {
+    streaming = twitterService.stream(teamSlug, (event) => {
+      if (tweetIsValid(event)) {
+        socket.emit('tweet', event);
+      }
+    }, () => {});
+  });
+
+  socket.on('end:stream', () => {
+    if (typeof streaming.destroy === 'function') {
+      streaming.destroy();
     }
-  }, () => {});
-  clients.push(socket);
+  });
 
   socket.on('disconnect', () => {
-    console.log(socket.streaming);
-    socket.streaming.destroy();
-    const i = clients.indexOf(socket);
-    clients.splice(i, 1);
+    if (typeof streaming.destroy === 'function') {
+      streaming.destroy();
+    }
   });
 });
 
