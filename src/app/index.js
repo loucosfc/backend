@@ -33,13 +33,9 @@ twitterService.setClient({
 });
 
 twitterService.stream('flamengo', (event) => {
-  // eslint-disable-next-line
-  if(event && event.text && event.retweeted_status && event.retweeted_status.retweet_count > 100) {
-    console.log(event.text);
+  if (event && event.text && event.retweeted_status && event.retweeted_status.retweet_count > 100) {
+    io.emit('tweet', event);
   }
-}, (event) => {
-  // eslint-disable-next-line
-  console.log(event);
-});
+}, () => {});
 
 httpServer.listen(port);
