@@ -34,7 +34,9 @@ twitterService.setClient({
 
 twitterService.stream('flamengo', (event) => {
   // eslint-disable-next-line
-  console.log(event && event.text);
+  if(event && event.text && event.retweeted_status && event.retweeted_status.retweet_count > 100) {
+    console.log(event.text);
+  }
 }, (event) => {
   // eslint-disable-next-line
   console.log(event);
