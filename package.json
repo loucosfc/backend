@@ -15,9 +15,6 @@
     "koa-router": "^7.2.1",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
-    "pg": "^6.4.0",
-    "pg-hstore": "^2.3.2",
-    "sequelize": "^4.2.0",
     "twitter": "^1.7.1"
   },
   "scripts": {
