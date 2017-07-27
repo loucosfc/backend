@@ -5,8 +5,8 @@ const Koa = require('koa');
 // const loadModules = require('../core/utils/load-modules');
 const logger = require('../core/middlewares/logger');
 const bodyParser = require('../core/middlewares/body-parser');
-const tweetIsValid = require('../core/utils/tweet-is-valid');
 const TwitterService = require('./twitter/twitter.service');
+const teams = require('../teams');
 
 dotenv.config();
 
@@ -27,27 +27,19 @@ app.use(bodyParser());
 const httpServer = http.createServer(app.callback());
 const io = new IO(httpServer);
 
+twitterService.initialize(teams, io);
+
+const exitAllRooms = (socket) => {
+  Object.keys(socket.rooms).forEach((v) => {
+    const room = socket.rooms[v];
+    socket.leave(room);
+  });
+};
+
 io.on('connection', (socket) => {
-  let streaming = {};
-
-  socket.on('begin:stream', (teamSlug) => {
-    streaming = twitterService.stream(teamSlug, (event) => {
-      if (tweetIsValid(event)) {
-        socket.emit('tweet', event);
-      }
-    }, () => {});
-  });
-
-  socket.on('end:stream', () => {
-    if (typeof streaming.destroy === 'function') {
-      streaming.destroy();
-    }
-  });
-
-  socket.on('disconnect', () => {
-    if (typeof streaming.destroy === 'function') {
-      streaming.destroy();
-    }
+  socket.on('watch:stream', (team) => {
+    exitAllRooms(socket);
+    socket.join(team);
   });
 });
 
