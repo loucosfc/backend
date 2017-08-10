@@ -18,7 +18,6 @@ jobs:
 
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -32,9 +31,12 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-deployment:
-  production:
-    branch: master
-    commands:
-      - git remote add production dokku@dokku.0e1dev.com:loucosfc-backend
-      - git push production master
+      
+      - deploy:
+          name: Maybe Deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ssh-keyscan -H dokku.0e1dev.com >> ~/.ssh/known_hosts
+              git remote add production dokku@dokku.0e1dev.com:loucosfc-backend
+              git push production master
+            fi
