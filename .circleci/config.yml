@@ -33,7 +33,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       
       - deploy:
-          name: Maybe Deploy
+          name: Deploy -> Production
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ssh-keyscan -H dokku.0e1dev.com >> ~/.ssh/known_hosts
