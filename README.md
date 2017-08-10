@@ -1,5 +1,7 @@
 ![](http://loucosfc.com/assets/logo-846f77c8d6ca20d7d2f6b6eb698c2aa6.png)
 
+[![CircleCI](https://circleci.com/gh/loucosfc/backend.svg?style=svg)](https://circleci.com/gh/loucosfc/backend)
+
 # Backend
 
 This is the main repository behind the [http://loucosfc.com](http://loucosfc.com) website.

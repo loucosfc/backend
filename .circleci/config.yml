@@ -40,3 +40,9 @@ jobs:
               git remote add production dokku@dokku.0e1dev.com:loucosfc-backend
               git push production master
             fi
+deployment:
+  production:
+    branch: master
+    commands:
+      - git remote add production dokku@dokku.example.com:my-app
+      - git push production master
