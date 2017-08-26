@@ -14,9 +14,7 @@ class TwitterService {
   initialize(teams, io) {
     this.io = io;
     const filter = teams.join(',');
-    this.stream(filter,
-      tweet => this.successCallback(tweet),
-      error => this.errorCallback(error));
+    this.stream(filter, tweet => this.successCallback(tweet), error => this.errorCallback(error));
   }
 
   stream(track, success, error) {
@@ -42,7 +40,9 @@ class TwitterService {
   // eslint-disable-next-line
   errorCallback(event) {
     // eslint-disable-next-line
-    //console.log(event);
+    console.log('@@@ ERRO! @@@');
+    // eslint-disable-next-line
+    console.log(event);
   }
 }
 
