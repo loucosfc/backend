@@ -1,23 +1,37 @@
 const Twitter = require('twitter');
 const tweetIsValid = require('../../core/utils/tweet-is-valid');
 const detectTeam = require('../../core/utils/detect-team');
+const moment = require('moment');
 
 class TwitterService {
   constructor() {
     this.teams = [];
   }
 
-  setClient(params) {
-    this.client = new Twitter(params);
-  }
-
-  initialize(teams, io) {
+  initialize(teams, io, settings) {
+    this.teams = teams;
     this.io = io;
-    const filter = teams.join(',');
-    this.stream(filter, tweet => this.successCallback(tweet), error => this.errorCallback(error));
+    this.client = new Twitter(settings);
+    this.connect();
   }
 
-  stream(track, success, error) {
+  connect() {
+    this.setLatestConnection();
+    this.stream(this.teams,
+      tweet => this.successCallback(tweet),
+      error => this.errorCallback(error));
+  }
+
+  reconnect() {
+    const expirationDate = moment(this.latestConnection).add(1, 'hours');
+    const currentDate = moment();
+    if (currentDate.isAfter(expirationDate)) {
+      this.connect();
+    }
+  }
+
+  stream(teams, success, error) {
+    const track = teams.join(',');
     const stream = this.client.stream('statuses/filter', { track });
     stream.on('data', (event) => {
       success(event);
@@ -43,6 +57,11 @@ class TwitterService {
     console.log('@@@ ERRO! @@@');
     // eslint-disable-next-line
     console.log(event);
+  }
+
+  setLatestConnection() {
+    this.latestConnection = moment();
+    return this.latestConnection;
   }
 }
 
